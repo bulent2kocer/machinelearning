@@ -54,7 +54,7 @@ jobs:
       displayName: set LD_LIBRARY_PATH
       continueOnError: true
     - bash: echo LD_LIBRARY_PATH
-      displayName: display LD_LIBRARY_PATH
+      displayName: display $LD_LIBRARY_PATH
       continueOnError: true      
     - script: cp $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/*.so /usr/local/lib/
       displayName: copy shared lib to /usr/local/lib/
