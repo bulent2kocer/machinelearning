@@ -825,8 +825,8 @@ namespace Microsoft.ML.Trainers
             //To triger the loading of MKL library since SymSGD native library depends on it.
             static Native() => ErrorMessage(0);
 
-            internal const string NativePath = "libSymSgdNative.so";
-            internal const string MklPath = "libMklImports.so";
+            internal const string NativePath = "SymSgdNative";
+            internal const string MklPath = "MklImports";
 
             public delegate void ChannelCallBack(string message);
 

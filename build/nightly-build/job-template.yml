@@ -44,8 +44,8 @@ jobs:
     - bash: ldd $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/libSymSgdNative.so
       displayName: check native dependency
       continueOnError: true
-    - bash: ldd $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/Microsoft.ML.NightlyBuild.Tests.dll
-      displayName: check nightly build dependency
+    - bash: export LD_DEBUG=all
+      displayName: set LD_DEBUG for more info
       continueOnError: true
     - bash: ldd $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/libMklProxyNative.so
       displayName: check MklProxyNative dependency
