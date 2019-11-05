@@ -41,10 +41,15 @@ jobs:
       displayName: Update package version
     - script: $(Build.SourcesDirectory)/Tools/dotnetcli/dotnet msbuild -restore $(Build.SourcesDirectory)/test/Microsoft.ML.NightlyBuild.Tests/Microsoft.ML.NightlyBuild.Tests.csproj /p:ReferenceTypeForTestFramework="Nuget" /p:Configuration=$(_configuration) /p:TargetArchitecture=${{ parameters.architecture }}
       displayName: Build Nightly Build Project with latest package versions
-    - bash: ldd SymSgdNative
+    - bash: ldd $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/SymSgdNative
       displayName: check native dependency
       continueOnError: true
-      workingDirectory: $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/
+    - bash: ldd $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/Microsoft.ML.NightlyBuild.Tests
+      displayName: check nightly build dependency
+      continueOnError: true
+    - bash: ldd $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/MklProxyNative
+      displayName: check MklProxyNative dependency
+      continueOnError: true
     - bash: export LD_LIBRARY_PATH=$(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1:$LD_LIBRARY_PATH
       displayName: set LD_LIBRARY_PATH
       continueOnError: true
