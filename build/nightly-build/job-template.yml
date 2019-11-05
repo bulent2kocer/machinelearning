@@ -8,7 +8,7 @@ parameters:
 
 jobs:
   - job: ${{ parameters.name }}
-    timeoutInMinutes: 40
+    timeoutInMinutes: 20
     strategy:
       matrix:
         ${{ if eq(parameters.customMatrixes, '') }}:
@@ -44,7 +44,7 @@ jobs:
     - bash: ldd $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/libSymSgdNative.so
       displayName: check native dependency
       continueOnError: true
-    - bash: LD_DEBUG=all cat
+    - bash: export LD_DEBUG=all
       displayName: set LD_DEBUG for more info
       continueOnError: true
     - bash: ldd $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/libMklProxyNative.so
@@ -52,9 +52,6 @@ jobs:
       continueOnError: true
     - bash: export LD_LIBRARY_PATH=$(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1:$LD_LIBRARY_PATH
       displayName: set LD_LIBRARY_PATH
-      continueOnError: true
-    - bash: LD_DEBUG=all cat
-      displayName: set LD_DEBUG for more info
       continueOnError: true
     - script: ${{ parameters.buildScript }} -$(_configuration) -runnightlybuildtests
       displayName: Run Nightly Build Tests
