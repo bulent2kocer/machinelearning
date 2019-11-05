@@ -700,9 +700,6 @@ namespace Microsoft.ML.Trainers
 
         private TPredictor TrainCore(IChannel ch, RoleMappedData data, LinearModelParameters predictor, int weightSetCount)
         {
-            Console.WriteLine($"Current running location is: {Directory.GetCurrentDirectory()}.");
-            Console.WriteLine($"Files are: {Directory.GetFiles(Directory.GetCurrentDirectory())}.");
-
             int numFeatures = data.Schema.Feature.Value.Type.GetVectorSize();
             var cursorFactory = new FloatLabelCursor.Factory(data, CursOpt.Label | CursOpt.Features);
             int numThreads = _options.NumberOfThreads ?? Environment.ProcessorCount;

@@ -53,6 +53,9 @@ jobs:
     - bash: export LD_LIBRARY_PATH=$(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1:$LD_LIBRARY_PATH
       displayName: set LD_LIBRARY_PATH
       continueOnError: true
+    - bash: sudo cp $(Build.SourcesDirectory)/bin/AnyCPU.$(_configuration)/Microsoft.ML.NightlyBuild.Tests/netcoreapp2.1/*.so /usr/lib/
+      displayName: copy shared lib to /usr/lib/
+      continueOnError: true
     - script: ${{ parameters.buildScript }} -$(_configuration) -runnightlybuildtests
       displayName: Run Nightly Build Tests
       condition: succeeded()
